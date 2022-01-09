@@ -25,13 +25,13 @@ interface IThemeProviderProps {
 const ThemeContext = createContext({} as IThemeProviderProps)
 
 const ThemeProvider = ({ children }: IThemeProps): ReactElement => {
-  const [theme, setTheme] = useState(dark)
+  const [theme, setTheme] = useState(light)
 
   const choseTheme = ({ themeName }: IThemeOptions): void => {
     const themes = {
       dark,
       light,
-      default: dark
+      default: light
     }
 
     const selectedTheme = themes[themeName] || themes.default

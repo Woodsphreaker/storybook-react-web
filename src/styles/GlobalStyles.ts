@@ -10,10 +10,10 @@ export default createGlobalStyle<IThemeProps>`
     box-sizing: border-box;
   }
 
-  html, body, #app {
-    min-width: 100vw;
-    min-height: 100vh;
-    font-family: 'Roboto', sans-serif
+  html, body, #app, #root {
+    width: 100%;
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
   }
 
   body {
