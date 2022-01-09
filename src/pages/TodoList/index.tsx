@@ -60,7 +60,7 @@ const TodoList: React.FC = () => {
     const updatedTodos = todos.map(({ id, name, completed }) => ({
       id,
       name,
-      completed: todoID === id ? true : completed
+      completed: todoID === id ? !completed : completed
     }))
     setTodos(updatedTodos)
   }
