@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import { Button } from '~/components/Button'
+import { Todos, ITodoItemProps } from '~/components/TodoList'
+import { Input } from '~/components/Input'
 
 import {
   Container,
@@ -6,18 +9,9 @@ import {
   Header,
   Title,
   Body,
-  InputContainer,
-  Input,
-  Button,
-  TodoListContainer,
-  TodoItem
+  InputContainer
+  // Input
 } from './styles'
-
-interface ITodos {
-  id: number
-  name: string
-  completed?: boolean
-}
 
 const createID = (): number => {
   const id = Math.round(Math.random() * 123456789)
@@ -25,7 +19,7 @@ const createID = (): number => {
 }
 
 const TodoList: React.FC = () => {
-  const [todos, setTodos] = useState<ITodos[]>([])
+  const [todos, setTodos] = useState<ITodoItemProps[]>([])
   const [newTodo, setNewTodo] = useState('')
 
   const handleInputChange = (event: React.FormEvent<HTMLInputElement>) => {
@@ -34,6 +28,10 @@ const TodoList: React.FC = () => {
   }
 
   const handleClickAddTodo = () => {
+    if (!newTodo) {
+      return false
+    }
+
     setTodos(currentTodos => [
       ...currentTodos,
       { name: newTodo, id: createID() }
@@ -78,20 +76,15 @@ const TodoList: React.FC = () => {
               onChange={handleInputChange}
               onKeyDown={handleReturnKeyPress}
             />
-            <Button onClick={handleClickAddTodo}>Add Todo</Button>
+            <Button buttonType="default" onClick={handleClickAddTodo}>
+              Add Todo
+            </Button>
           </InputContainer>
-          <TodoListContainer>
-            {todos.map(({ name, id, completed }) => (
-              <TodoItem key={id} completed={completed}>
-                <li onClick={() => handleClickCompleteTodo(id)}>{name}</li>
-                <li>
-                  <Button onClick={() => handleClickRemoveTodo(id)}>
-                    Delete
-                  </Button>
-                </li>
-              </TodoItem>
-            ))}
-          </TodoListContainer>
+          <Todos
+            todos={todos}
+            handleClickCompleteTodo={handleClickCompleteTodo}
+            handleClickRemoveTodo={handleClickRemoveTodo}
+          />
         </Body>
       </Content>
     </Container>
